@@ -7,7 +7,6 @@ const thunk = ({ dispatch }: { dispatch: Dispatch<unknown> }) => {
         return action(dispatch);
       } else {
         const nextAction = next(action);
-
         return nextAction;
       }
     };

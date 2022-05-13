@@ -72,7 +72,7 @@ const createStore = <T>(
 
 const applyMiddleware = <T>(...middlewares: Middleware<T>[]) => {
   return (data: { dispatch: Dispatch<T>; getState: GetState<T> }) => {
-    let chain = middlewares.map((middleware) => middleware(data));
+    const chain = middlewares.map((middleware) => middleware(data));
 
     return compose(...chain);
   };
