@@ -22,6 +22,11 @@
 - takeEvery
 - delay
 
+5. react-redux
+
+- connect
+- Provider
+
 ```js
 const addOne = {
   type: "ADD",

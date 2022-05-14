@@ -12,14 +12,14 @@ import {
 class Store<T> {
   state: T | undefined;
   reducer: Reducer<T>;
-  listeners: Listener[];
+  listeners: Set<Listener>;
   middleware?: Middleware<T>;
 
   constructor(reducer: Reducer<T>, initial?: T, middleware?: Middleware<T>) {
     this.reducer = reducer;
     this.state = initial;
     this.state = this.reducer(this.state);
-    this.listeners = [];
+    this.listeners = new Set();
 
     this.middleware = middleware;
   }
@@ -47,7 +47,11 @@ class Store<T> {
   };
 
   subscribe = (listener: Listener) => {
-    this.listeners.push(listener);
+    this.listeners.add(listener);
+
+    return () => {
+      this.listeners.delete(listener);
+    };
   };
 
   replaceReducer = (nextReducer: Reducer<T>) => {
